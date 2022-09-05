@@ -14,6 +14,7 @@ const getUser = asyncHandler( async (req,res) => {
             _id: user.id,
             email: user.email,
             username: user.username,
+            description: user.description,
         })
     }
 })
