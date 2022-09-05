@@ -1,7 +1,6 @@
-
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema(
+const profileSchema = mongoose.Schema(
   {
     username: {
       type: String,
@@ -13,13 +12,9 @@ const userSchema = mongoose.Schema(
       required: [true, "Please add an email"],
       unique: true,
     },
-    password: {
-      type: String,
-      required: [true, "Please add a password"],
-    },
-    roleID: {
-      type: Number,
-      default: 1,
+    description: {
+        type: String,
+        default: "",
     }
   },
   {
@@ -28,4 +23,4 @@ const userSchema = mongoose.Schema(
 );
 
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("userProfile", profileSchema);
