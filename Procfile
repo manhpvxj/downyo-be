@@ -1,1 +1,1 @@
-worker: nodemon --inspect ./src/server.js
+worker: node ./src/server.js
