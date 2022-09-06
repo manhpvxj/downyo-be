@@ -13,9 +13,25 @@ const profileSchema = mongoose.Schema(
       unique: true,
     },
     description: {
-        type: String,
-        default: "",
-    }
+      type: String,
+      default: "",
+    },
+    followers: {
+      type: Number,
+      default: 0,
+    },
+    posts: {
+      type: Number,
+      default: 0,
+    },
+    avatar: {
+      type: String,
+      default:"https://i.imgur.com/gAN7yuY.png"
+    },
+    facebook: {
+      type: String,
+      require: false,
+    },
   },
   {
     timestamps: true,

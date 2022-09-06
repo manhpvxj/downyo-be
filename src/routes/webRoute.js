@@ -11,7 +11,7 @@ const initWebRoutes = (app) => {
 
     router.post("/auth/register", registerUser);
     router.post("/auth/login", loginUser);
-    router.get("/:id", getUser);
+    router.get("/users/:id", getUser);
     router.get("/:id/edit", protect, getUser);
     return app.use("/api", router);
 }

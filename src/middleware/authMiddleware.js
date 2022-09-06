@@ -4,6 +4,7 @@ const User = require("../models/userModel");
 
 const protect = asyncHandler(async (req, res, next) => {
   const token = req.headers.authorization;
+  console.log(token);
   if (token) {
     try {
       // Get token from header
@@ -15,12 +16,12 @@ const protect = asyncHandler(async (req, res, next) => {
       next();
     } catch (error) {
       res.status(403);
-      throw new Error("Not authorized");
+      throw new Error("Not authorized, please re-login");
     }
   }
   else {
     res.status(401);
-    throw new Error("Not authorized, no token");
+    throw new Error("You need to login");
   }
 });
 

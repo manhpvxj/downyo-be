@@ -15,6 +15,10 @@ const getUser = asyncHandler( async (req,res) => {
             email: user.email,
             username: user.username,
             description: user.description,
+            avatar: user.avatar,
+            followers: user.followers,
+            posts: user.posts,
+            facebook: user.facebook,
         })
     }
 })
