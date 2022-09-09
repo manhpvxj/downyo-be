@@ -32,6 +32,14 @@ const profileSchema = mongoose.Schema(
       type: String,
       require: false,
     },
+    github: {
+      type: String,
+      require: false,
+    },
+    discord: {
+      type: String,
+      require: false,
+    },
   },
   {
     timestamps: true,

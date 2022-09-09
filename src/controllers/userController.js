@@ -10,16 +10,7 @@ const getUser = asyncHandler( async (req,res) => {
         })
     }
     else {
-        res.status(200).json({
-            _id: user.id,
-            email: user.email,
-            username: user.username,
-            description: user.description,
-            avatar: user.avatar,
-            followers: user.followers,
-            posts: user.posts,
-            facebook: user.facebook,
-        })
+        res.status(200).json(user);
     }
 })
 
