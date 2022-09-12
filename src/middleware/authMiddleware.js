@@ -4,7 +4,6 @@ const User = require("../models/userModel");
 
 const auth = asyncHandler(async (req, res, next) => {
   const token = req.headers.authorization;
-  console.log(token);
   if (token) {
     try {
       // Get token from header

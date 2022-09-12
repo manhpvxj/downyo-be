@@ -5,7 +5,6 @@ const auth = require("./authMiddleware");
 
 const verify = asyncHandler( async (req, res, next) => {
     const token = req.headers.authorization;
-  console.log(token);
   if (token) {
     try {
       // Get token from header

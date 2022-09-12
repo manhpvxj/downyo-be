@@ -3,8 +3,11 @@ const router = express.Router();
 const { registerUser, loginUser } = require("../controllers/authController");
 const { editProfile } = require("../controllers/editProfileController");
 const { getUser } = require("../controllers/userController");
+const { handleImageUpload } = require("../controllers/imageUploadController");
 const { auth } = require("../middleware/authMiddleware");
 const { verify } = require("../middleware/verifyMiddleware");
+var multer = require('multer');
+var upload = multer({ dest: 'uploads/' });
 const initWebRoutes = (app) => {
     router.get("/", (req, res) => {
         res.send("Hello world from route~")
@@ -15,6 +18,7 @@ const initWebRoutes = (app) => {
     router.get("/users/:id", getUser);
     router.post("/users/:id/edit", auth, verify, editProfile);
     router.get("/users/:id/edit", auth, verify, getUser);
+    router.post("/users/:id/edit/upload",upload.single('avatar') ,handleImageUpload);
     return app.use("/api", router);
 }
 
