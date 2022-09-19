@@ -6,11 +6,13 @@ const { getUser } = require("../controllers/userController");
 const { handleImageUpload } = require("../controllers/imageUploadController");
 const { auth } = require("../middleware/authMiddleware");
 const { verify } = require("../middleware/verifyMiddleware");
-var multer = require('multer');
-var upload = multer({ dest: 'uploads/' });
+const { createPost, createComment } = require("../controllers/postController");
+const { getAllPosts } = require("../controllers/getNewsFeedController");
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 const initWebRoutes = (app) => {
     router.get("/", (req, res) => {
-        res.send("Hello world from route~")
+        res.send("Welcome to my api xd");
     })
 
     router.post("/auth/register", registerUser);
@@ -19,6 +21,10 @@ const initWebRoutes = (app) => {
     router.post("/users/:id/edit", auth, verify, editProfile);
     router.get("/users/:id/edit", auth, verify, getUser);
     router.post("/users/:id/edit/upload",upload.single('avatar') ,handleImageUpload);
+    router.post("/:id/post/create", auth, verify, createPost);
+    router.post("/post/:id/comment", auth, createComment);
+    router.get("/news", getAllPosts);
+    
     return app.use("/api", router);
 }
 
