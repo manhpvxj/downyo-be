@@ -13,17 +13,11 @@ const postSchema = mongoose.Schema(
         },
         comments: {
             type: [Object],
-            default: [{
-                author: "",
-                content: "",
-            }],
+            default: [],
         },
         likes: {
             type: [Object],
-            default: [{
-                author: "",
-                content: "",
-            }],
+            default: [],
         },
         
     },

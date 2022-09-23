@@ -52,7 +52,6 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       username: user.username,
       email: user.email,
-      roleID: 1,
       token: generateToken(user.id),
     });
   } else {
@@ -85,7 +84,6 @@ const loginUser = asyncHandler(async (req, res) => {
       res.status(200).json({
         msg: "Login successful",
         _id: user.id,
-        roleID: user.roleID,
         username: user.username,
         token: generateToken(user.id),
         })

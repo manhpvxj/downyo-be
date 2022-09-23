@@ -18,7 +18,7 @@ const verify = asyncHandler( async (req, res, next) => {
         next();
       }
       else {
-        res.status(400).json("You are not allowed to do this");
+        res.status(403).json("You are not allowed to do this");
       }
     } catch (error) {
       res.status(403);
