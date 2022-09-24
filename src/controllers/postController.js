@@ -24,12 +24,18 @@ const createPost = async (req, res) => {
 
 
 
-const getPostsByUsername = async (req, res) => {
+const getPostsById = async (req, res) => {
     try {
-
+        const post = await Post.findOne({_id: req.params.id})
+        if(!post) {
+            res.status(404).json("Can not find post");
+        }
+        else {
+            res.status(200).json(post);
+        }
     }
     catch(e) {
-
+        res.status(400).json(e);
     }
 }
 const createComment = async (req, res) => {
@@ -41,6 +47,7 @@ const createComment = async (req, res) => {
                     comments: {
                         author: req.user.username,
                         content: req.body.content,
+                        avatar: req.user.avatar,
                     },
                 },  
 
@@ -77,4 +84,4 @@ const Like = async (req, res) => {
         res.status(401).json(e);
     }
 }
-module.exports = { createPost, createComment, getPostsByUsername, Like }
+module.exports = { createPost, createComment, getPostsById, Like }
