@@ -42,16 +42,21 @@ const createComment = async (req, res) => {
     try {
         const postComment = Post.findById(req.params.id);
         if (postComment) {
+            if (req.body.content) {
+                const user = await Profile.findOne({username: req.user.username})
                 await Post.updateOne({_id : req.params.id}, {
                 $push: {
                     comments: {
-                        author: req.user.username,
+                        author:user.username,
                         content: req.body.content,
-                        avatar: req.user.avatar,
+                        avatar:user.avatar,
+                        createdAt: Date(),
                     },
-                },  
-
-            })
+                },
+            })}
+            else {
+                res.status(400).json("Please add comment");
+            }
             res.status(200).json("OK");
         }
         else {

@@ -8,7 +8,6 @@ const auth = asyncHandler(async (req, res, next) => {
     try {
       // Get token from header
       const accessToken = req.headers.authorization.split(" ")[1];
-      console.log(accessToken);
       // Verify token
       const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_KEY);
       // Get user from the token
