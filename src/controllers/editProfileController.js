@@ -14,9 +14,9 @@ const editProfile = asyncHandler(async (req, res) => {
             {username : userProfile.username}, 
             {$set: {
                 description : req.body.description,
-                facebook : req.body.facebook,
-                github : req.body.github,
-                discord : req.body.discord,
+                web1 : req.body.web1,
+                web2 : req.body.web2,
+                web3 : req.body.web3,
                 avatar : req.body.avatar,
             }})
         res.status(200).json(newProfile);

@@ -28,15 +28,15 @@ const profileSchema = mongoose.Schema(
       type: String,
       default:"https://i.imgur.com/gAN7yuY.png"
     },
-    facebook: {
+    web1: {
       type: String,
       require: false,
     },
-    github: {
+    web2: {
       type: String,
       require: false,
     },
-    discord: {
+    web3: {
       type: String,
       require: false,
     },

@@ -14,6 +14,10 @@ const createPost = async (req, res) => {
                 },
         content: req.body.content,
     })
+    await Profile.findOneAndUpdate({username: req.user.username}, 
+        {$inc: {
+            posts: 1,
+        }})
     res.status(200).json(post);
     }
     catch(e) {
@@ -79,7 +83,7 @@ const Like = async (req, res) => {
                     },
                 },  
             })
-            res.status(200).json("OK");
+            res.status(200).json("Liked");
         }
         else {
             res.status(404).json("Can not find post");
@@ -89,4 +93,25 @@ const Like = async (req, res) => {
         res.status(401).json(e);
     }
 }
-module.exports = { createPost, createComment, getPostsById, Like }
+const unLike = async (req, res) => {
+    try {
+        const postComment = Post.findById(req.params.id);
+        if (postComment) {
+                await Post.updateOne({_id : req.params.id}, {
+                $pull: {
+                    likes: {
+                        author: req.user.username,
+                    },
+                },  
+            })
+            res.status(200).json("Unliked");
+        }
+        else {
+            res.status(404).json("Can not find post");
+        }
+    }
+    catch(e) {
+        res.status(401).json(e);
+    }
+}
+module.exports = { createPost, createComment, getPostsById, Like, unLike }
