@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const validator = require("validator");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const Profile = require("../models/profileModel");
@@ -7,7 +8,8 @@ const Profile = require("../models/profileModel");
 // @route   POST /api/auth/register
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { username, email, password } = req.body;
+  try {
+    const { username, email, password } = req.body;
   // Check if input is empty
   if (!username || !email || !password) {
     res.status(400).json({
@@ -15,6 +17,20 @@ const registerUser = asyncHandler(async (req, res) => {
       errMsg: "Please add all field",
     });
   }
+  // Validate
+  if(!validator.isAlphanumeric(username)) {
+    res.status(400).json({errMsg:"Invalid username"})
+  }
+  else if(!validator.isLength(username, {min:6})) {
+    res.status(400).json({errMsg:"Username must be at least 6 characters"})
+  }
+  else if(!validator.isEmail(email)) {
+    res.status(400).json({errMsg:"Invalid email"})
+  }
+  else if(!validator.isLength(password, {min:6})) {
+    res.status(400).json({errMsg:"Password must be at least 6 characters"})
+  }
+  else {
   // Check if user exists
   const userExists = await User.findOne({ username });
   const emailExists = await User.findOne({ email });
@@ -30,6 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
       errMsg: "Email already exists",
     })
   }
+  else {
   // Hash password
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
@@ -48,15 +65,17 @@ const registerUser = asyncHandler(async (req, res) => {
   })
   if (user) {
     res.status(201).json({
-      msg: "Register successful",
+      msg: "Register successfully",
       _id: user.id,
       username: user.username,
       email: user.email,
-      token: generateToken(user.id),
     });
   } else {
     res.status(400);
     throw new Error("Invalid user data");
+  }}}}
+  catch (e){
+    throw new Error(e);
   }
 });
 

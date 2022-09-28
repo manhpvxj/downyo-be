@@ -1,5 +1,6 @@
 
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const userSchema = mongoose.Schema(
   {
@@ -16,6 +17,11 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please add a password"],
+      validate(value) {
+        if(!validator.isLength(value, {min:6})) {
+          throw new Error("Password must be at least 6 characters")
+        }
+      },
     },
   },
   {

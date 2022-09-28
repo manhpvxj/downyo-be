@@ -26,13 +26,27 @@ const createPost = async (req, res) => {
     }
 }
 
-
+const getPostByUsername = async (req, res) => {
+    try {
+        const posts = await Post.find({username : req.params.user, }).sort({updatedAt: -1,})
+        console.log(posts);
+        if(!posts) {
+            res.status(404).json("Can not find post.")
+        }
+        else {
+            res.status(200).json(posts)
+        }
+    }
+    catch(e) {
+        res.status(400).json(e);
+    }
+}
 
 const getPostsById = async (req, res) => {
     try {
         const post = await Post.findOne({_id: req.params.id})
         if(!post) {
-            res.status(404).json("Can not find post");
+            res.status(404).json("Can not find post.");
         }
         else {
             res.status(200).json(post);
@@ -114,4 +128,4 @@ const unLike = async (req, res) => {
         res.status(401).json(e);
     }
 }
-module.exports = { createPost, createComment, getPostsById, Like, unLike }
+module.exports = { createPost, createComment, getPostsById, Like, unLike, getPostByUsername }
